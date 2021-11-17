@@ -1,17 +1,15 @@
-import styled from "styled-components";
 import { BrowserRouter as Router } from 'react-router-dom'
+import { Canvas } from './components'
+import { MainLayout } from './layouts'
 
 function App() {
   return (
     <Router>
-      <AppStyled>
-        <h1>Hello World!</h1>
-
-      </AppStyled>
+      <MainLayout>
+        <Canvas />
+      </MainLayout>
     </Router>
   );
 }
 
 export default App;
-
-const AppStyled = styled.div``;
