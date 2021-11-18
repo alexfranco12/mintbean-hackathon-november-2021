@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { ColorPicker } from "..";
+import { Sidebar } from "..";
 
 export const Canvas = ( ) => {
   const canvasRef = useRef(null)
@@ -32,36 +32,6 @@ export const Canvas = ( ) => {
           contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
           contextRef.current.drawImage(img, 0, 0, canvasRef.current.width, canvasRef.current.height, 0, 0, canvasRef.current.width, canvasRef.current.height);  
         }
-      }
-    }
-  }
-
-  const updateStroke = (e) => {
-    e.preventDefault()
-    const { id, value } = e.target
-    const canvas = canvasRef.current
-    const context = canvas.getContext("2d");
-
-    if ( id === "color" ) {
-      value !== "eraser"
-        ? context.strokeStyle = value
-        : context.strokeStyle = "white"
-    } else if ( id === "size" ) {
-      switch (value) {
-        case "xSmall":
-          context.lineWidth = 1
-          break;
-        case "small":
-          context.lineWidth = 3
-          break;
-        case "large":
-          context.lineWidth = 7
-          break;
-        case "xLarge":
-          context.lineWidth = 9
-          break;
-        default:
-          context.lineWidth = 5
       }
     }
   }
@@ -101,21 +71,6 @@ export const Canvas = ( ) => {
     setIsDrawing(false)
   }
 
-  const clearCanvas = () => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d")
-    context.fillStyle = "white"
-    context.fillRect(0, 0, canvas.width, canvas.height)
-  }
-
-  const undoDrawing = () => {
-    history.undo(canvasRef, contextRef);
-  }
-
-  const redoDrawing = () => {
-    history.redo(canvasRef, contextRef)
-  }
-
   useEffect(() => {
     prepareCanvas();
   },[])
@@ -134,11 +89,10 @@ export const Canvas = ( ) => {
       </div>
 
       <div className="color-picker">
-        <ColorPicker 
-          updateStroke={updateStroke} 
-          clearCanvas={clearCanvas}
-          undoDrawing={undoDrawing}
-          redoDrawing={redoDrawing}
+        <Sidebar 
+          canvasRef={canvasRef}
+          contextRef={contextRef}
+          history={history}
         />
       </div>
       
@@ -152,7 +106,10 @@ const CanvasStyled = styled.div`
   display: flex;
   & .canvas-container {
     flex: 4;
-    background-color: white;
+    & .app-canvas {
+      background-color: white;
+      border: 2px solid black;
+    }
   }
   & .color-picker {
     flex: 1;
