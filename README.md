@@ -144,6 +144,10 @@ alexfranco12@gmail.com
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
+- [React Color](http://casesandberg.github.io/react-color/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [Styled Components](https://styled-components.com/)
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
