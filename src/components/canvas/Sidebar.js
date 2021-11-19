@@ -2,6 +2,15 @@ import styled from "styled-components";
 import { CirclePicker } from 'react-color'
 import { FaUndo, FaRedo } from 'react-icons/fa';
 
+const tools = [
+  'pencil',
+  'circle',
+  'triangle',
+  'rectangle',
+  'pointer',
+  'eraser',
+]
+
 const sizes = [
   "xSmall",
   "small",
@@ -10,36 +19,38 @@ const sizes = [
   "xLarge"
 ]
 
-export const Sidebar = ({ canvasRef, contextRef, history }) => {
+export const Sidebar = ({ canvasRef, contextRef, history, updateTool, setColor, setLineWidth }) => {
+
+  const downloadImage = () => {
+    let img = canvasRef.current.toDataURL("image/png");
+    var link = document.createElement('a');
+    link.download = "image.png";
+    link.href = img;
+    link.click();
+  }
 
   const updateColor = (color) => {
-    const context = canvasRef.current.getContext("2d");
-    context.strokeStyle = color
+    setColor(color)
   }
 
   const updateStroke = (e) => {
-    const context = canvasRef.current.getContext("2d");
-    const { id, value } = e.target;
+    const { value } = e.target;
 
-    if ( id === "eraser" ) {
-      context.strokeStyle = value
-    } else if ( id === "size" ) {
-      switch (value) {
-        case "xSmall":
-          context.lineWidth = 1
-          break;
-        case "small":
-          context.lineWidth = 3
-          break;
-        case "large":
-          context.lineWidth = 7
-          break;
-        case "xLarge":
-          context.lineWidth = 9
-          break;
-        default:
-          context.lineWidth = 5
-      }
+    switch (value) {
+      case "xSmall":
+        setLineWidth(1)
+        break;
+      case "small":
+        setLineWidth(4)
+        break;
+      case "large":
+        setLineWidth(10)
+        break;
+      case "xLarge":
+        setLineWidth(16)
+        break;
+      default:
+        setLineWidth(7)
     }
   }
 
@@ -52,6 +63,18 @@ export const Sidebar = ({ canvasRef, contextRef, history }) => {
 
   return ( 
     <SidebarStyled>
+
+      <div className="tools">
+        {tools.map((tool, i) => (
+          <button
+            className="tool"
+            key={i}
+            onClick={updateTool}
+            value={tool}
+          >{tool}
+          </button>
+        ))}
+      </div>
 
       <div className="undo-redo-container">
         <div 
@@ -75,19 +98,10 @@ export const Sidebar = ({ canvasRef, contextRef, history }) => {
         onChange={(color, e) => updateColor(color.hex)}
       />
 
-      <button 
-        className="button color"
-        id="eraser"
-        onClick={updateStroke}
-        value="white"
-        > eraser
-      </button>
-
       <h3>Stroke Size</h3>
       {sizes.map((size, i) => (
         <button 
-          className="button size"
-          id="size"
+          className="button stroke-size"
           key={i}
           onClick={updateStroke}
           value={size}
@@ -101,6 +115,13 @@ export const Sidebar = ({ canvasRef, contextRef, history }) => {
       > clear
       </button>
 
+      <button
+        className="download-image"
+        onClick={downloadImage}>
+        download
+      </button>
+      
+
     </SidebarStyled>
    );
 };
@@ -109,6 +130,9 @@ const SidebarStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  & .tool {
+    margin: 1rem .5rem;
+  }
   & .undo-redo-container {
     display: flex;
     justify-content: space-evenly;

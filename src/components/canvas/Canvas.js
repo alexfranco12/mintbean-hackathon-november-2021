@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Sidebar } from "..";
+import { 
+  Sidebar,
+} from "..";
 
 export const Canvas = ( ) => {
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
+  const [ tool, setTool ] = useState(null)
+  const [ color, setColor ] = useState("black")
+  const [ lineWidth, setLineWidth ] = useState(5)
   const [ isDrawing, setIsDrawing ] = useState(false)
   const [ undoList, setUndoList ] = useState([])
   const [ redoList, setRedoList ] = useState([])
@@ -45,18 +50,81 @@ export const Canvas = ( ) => {
 
     const context = canvas.getContext("2d");
     context.scale(1, 1)
-    context.lineCap = "round"
-    context.strokeStyle = "black"
-    context.lineWidth = 5
     contextRef.current = context;
   }
 
-  const startDrawing = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent
-    contextRef.current.beginPath()
-    contextRef.current.moveTo(offsetX, offsetY)
-    history.saveState(canvasRef);
-    setIsDrawing(true)
+  const updateTool = (e) => {
+    const { value } = e.target;
+    setTool(value)
+  }
+
+  const startDrawing = (e) => {
+    if (!tool) return
+
+    const ctx = contextRef.current
+    ctx.save();
+
+    const { nativeEvent } = e
+    const { offsetX: x, offsetY: y } = nativeEvent
+
+    switch (tool) {
+      case "pencil":
+        console.log("pencil")
+        ctx.beginPath()
+        ctx.lineCap = "round"
+        ctx.strokeStyle = color
+        ctx.lineWidth = lineWidth
+        ctx.moveTo(x, y)
+        history.saveState(canvasRef);
+        setIsDrawing(true)
+        break;
+      case "eraser":
+        ctx.beginPath()
+        ctx.lineCap = "round"
+        ctx.strokeStyle = "white"
+        ctx.lineWidth = lineWidth
+        ctx.moveTo(x, y)
+        history.saveState(canvasRef);
+        setIsDrawing(true)
+        break;
+      case "circle":
+        console.log("cirlce")
+        ctx.beginPath()
+        ctx.arc(x, y, (lineWidth * 11), 0, (Math.PI * 2), false);
+        ctx.strokeStyle = 'black'
+        ctx.lineWidth = lineWidth
+        ctx.fillStyle = color
+        ctx.fill()
+        ctx.stroke()
+        history.saveState(canvasRef);
+        break;
+      case "triangle":
+        console.log("triangle")
+        let length = lineWidth * 11
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + length, y);
+        ctx.lineTo(x, y + length);
+        ctx.strokeStyle = 'black'
+        ctx.lineWidth = lineWidth
+        ctx.fillStyle = color
+        ctx.fill();
+        ctx.closePath();
+        ctx.stroke();
+        history.saveState(canvasRef);
+        break;
+      case "rectangle":
+        ctx.beginPath();
+        ctx.rect(x, y, 11 * lineWidth, 8 * lineWidth);
+        ctx.strokeStyle = 'black'
+        ctx.lineWidth = lineWidth
+        ctx.fillStyle = color
+        ctx.fill()
+        ctx.stroke()
+        break;
+      default:
+        console.log("pointer")
+    }
   }
 
   const draw = ({ nativeEvent }) => {
@@ -68,8 +136,29 @@ export const Canvas = ( ) => {
 
   const finishDrawing = () => {
     contextRef.current.closePath()
+    contextRef.current.restore();
     setIsDrawing(false)
   }
+
+  const editCanvas = ( e ) => {
+    const canvasBounds = canvasRef.current.getBoundingClientRect();
+    const { clientX, clientY } = e
+    const x = clientX - canvasBounds.left
+    const y = clientY - canvasBounds.top
+    console.log(x, y)
+  }
+
+  // const editCircle = (xmouse, ymouse) => {
+  //   const distance = 
+  //     Math.sqrt(((xmouse - objectX) * (xmouse - objectX)) 
+  //     + ((ymouse - objectY) * (ymouse - objectY)))
+  //   console.log(distance)
+  //   if (distance < 100) {
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
 
   useEffect(() => {
     prepareCanvas();
@@ -81,7 +170,7 @@ export const Canvas = ( ) => {
         <canvas
           className="app-canvas"
           ref={canvasRef}
-          onMouseDown={startDrawing}
+          onMouseDown={(e) => tool === "pointer" ? editCanvas(e) : startDrawing(e)}
           onMouseUp={finishDrawing}
           onMouseOut={finishDrawing}
           onMouseMove={draw}
@@ -93,6 +182,9 @@ export const Canvas = ( ) => {
           canvasRef={canvasRef}
           contextRef={contextRef}
           history={history}
+          updateTool={updateTool}
+          setColor={setColor}
+          setLineWidth={setLineWidth}
         />
       </div>
       
