@@ -18,7 +18,7 @@
     <a href="https://mintbean.io/meets/cfa4fa54-c706-4c51-a04f-671f6686f9fd"><strong>See more details about the Hackathon >></strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Application</a>
+    <a href="https://hungry-lalande-f9b7b7.netlify.app/">View Application</a>
     ·
     <a href="https://github.com/alexfranco12/mintbean-hackathon-november-2021/issues">Report Bug</a>
     ·
@@ -45,7 +45,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -58,15 +57,15 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Paint
+An app that lets users express their creativity in a visual format.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 ### Built With
-
-[React.js](https://reactjs.org/)
+* Javascript
+* [React.js](https://reactjs.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -87,35 +86,50 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/alexfranco12/mintbean-hackathon-november-2021
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- ROADMAP -->
-## Roadmap
+# Roadmap
 
-- [ ] create landing page
+##### MVP 
+- [x] as a user, I can drag my mouse across the screen to make free-form lines.
+- [ ] As a user, I can click areas of the screen with my mouse to fill them with a color, texture or pattern.
+
+##### TO-DO
+- [ ] a landing page that explains the application
+- [ ] different tools
+  - [x] pencil
+  - [ ] paint brush
+  - [ ] text box
+  - [ ] shapes
+    - [ ] circle
+    - [ ] square
+    - [ ] triangle
+  - [x] eraser
+- [ ] customize tools
+  - [x] color picker
+  - [x] cursor size
+- [ ] Mistake management
+  - [x] clear board
+  - [x] undo button
+  - [x] redo button
+- [ ] 
+
+##### Stretch Goals
+- [ ] saveable files
+- [ ] shareable art
+- [ ] user profiles with galleries of work
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
