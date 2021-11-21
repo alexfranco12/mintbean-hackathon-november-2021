@@ -1,0 +1,19 @@
+
+Home Page:
+  ☐ create home page
+
+Paint:
+  ☐ change stroke size to a slider
+  ☐ change buttons to icons
+  ☐ opacity slider
+  ☐ update height of canvas to be smaller
+  ✔ create a tool bar @done(21-11-21 10:50)
+
+Profile Page:
+  ☐ create profile page
+  
+
+Backend:
+  ☐ create backend
+  ☐ user authentication
+  ☐ save work to profile
