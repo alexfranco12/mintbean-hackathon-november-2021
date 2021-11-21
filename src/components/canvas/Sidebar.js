@@ -1,15 +1,5 @@
 import styled from "styled-components";
 import { CirclePicker } from 'react-color'
-import { FaUndo, FaRedo } from 'react-icons/fa';
-
-const tools = [
-  'pencil',
-  'circle',
-  'triangle',
-  'rectangle',
-  'pointer',
-  'eraser',
-]
 
 const sizes = [
   "xSmall",
@@ -19,15 +9,7 @@ const sizes = [
   "xLarge"
 ]
 
-export const Sidebar = ({ canvasRef, contextRef, history, updateTool, setColor, setLineWidth }) => {
-
-  const downloadImage = () => {
-    let img = canvasRef.current.toDataURL("image/png");
-    var link = document.createElement('a');
-    link.download = "image.png";
-    link.href = img;
-    link.click();
-  }
+export const Sidebar = ({ setColor, setLineWidth }) => {
 
   const updateColor = (color) => {
     setColor(color)
@@ -54,40 +36,8 @@ export const Sidebar = ({ canvasRef, contextRef, history, updateTool, setColor, 
     }
   }
 
-  const clearCanvas = () => {
-    const canvas = canvasRef.current
-    const context = canvas.getContext("2d");
-    context.fillStyle = "white"
-    context.fillRect(0, 0, canvas.width, canvas.height)
-  }
-
   return ( 
     <SidebarStyled>
-
-      <div className="tools">
-        {tools.map((tool, i) => (
-          <button
-            className="tool"
-            key={i}
-            onClick={updateTool}
-            value={tool}
-          >{tool}
-          </button>
-        ))}
-      </div>
-
-      <div className="undo-redo-container">
-        <div 
-          className="edit"
-          onClick={() => history.undo(canvasRef, contextRef)}
-        > <FaUndo />
-        </div>
-        <div 
-          className="edit"
-          onClick={() => history.redo(canvasRef, contextRef)}
-        > <FaRedo />
-        </div>
-      </div>
 
       <h3>Color</h3>
       <CirclePicker
@@ -108,20 +58,7 @@ export const Sidebar = ({ canvasRef, contextRef, history, updateTool, setColor, 
         >{size}
         </button>
       ))}
-
-      <button
-        className="button clear-canvas"
-        onClick={clearCanvas}
-      > clear
-      </button>
-
-      <button
-        className="download-image"
-        onClick={downloadImage}>
-        download
-      </button>
       
-
     </SidebarStyled>
    );
 };
