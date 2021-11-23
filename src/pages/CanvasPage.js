@@ -42,30 +42,6 @@ export const CanvasPage = ({ image }) => {
     }
   }
 
-  const prepareCanvas = () => {
-    const canvas = canvasRef.current
-    canvas.width = document.getElementById("canvas-container").offsetWidth;
-    canvas.height = 500;
-    canvas.style.width = `${document.getElementById("canvas-container").offsetWidth}px`;
-    canvas.style.height = `${canvas.height}px`;
-
-    const context = canvas.getContext("2d");
-    context.scale(1, 1)
-    contextRef.current = context;
-
-    if (image) {
-      const canvas = canvasRef.current
-      const context = canvas.getContext("2d");
-
-      // load image from data url
-      var imageObj = new Image();
-      imageObj.onload = function() {
-        context.drawImage(this, 0, 0);
-      };
-      imageObj.src = image;
-    } 
-  }
-
   const startDrawing = (e) => {
     const ctx = contextRef.current
     ctx.save();
@@ -152,8 +128,28 @@ export const CanvasPage = ({ image }) => {
   // }
 
   useEffect(() => {
-    prepareCanvas()
-  },[])
+    const canvas = canvasRef.current
+    canvas.width = document.getElementById("canvas-container").offsetWidth;
+    canvas.height = 500;
+    canvas.style.width = `${document.getElementById("canvas-container").offsetWidth}px`;
+    canvas.style.height = `${canvas.height}px`;
+
+    const context = canvas.getContext("2d");
+    context.scale(1, 1)
+    contextRef.current = context;
+
+    if (image) {
+      const canvas = canvasRef.current
+      const context = canvas.getContext("2d");
+
+      // load image from data url
+      var imageObj = new Image();
+      imageObj.onload = function() {
+        context.drawImage(this, 0, 0);
+      };
+      imageObj.src = image;
+    } 
+  },[image])
 
   return (
     <CanvasStyled>
