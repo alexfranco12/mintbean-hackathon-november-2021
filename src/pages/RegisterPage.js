@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const initialFormState = {
   username: '',
   password: '',
 }
 
-export const LoginPage = ({ setShowModal, setIsRegistered }) => {
+export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
   const [formState, setFormState] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState(null)
@@ -20,14 +20,14 @@ export const LoginPage = ({ setShowModal, setIsRegistered }) => {
   const submitForm = (e) => {
     e.preventDefault();
     setIsSubmitting(true)
-    axios.post(`${REACT_APP_BACKEND}/login`, {
+    axios.post(`${REACT_APP_BACKEND}/register`, {
       ...formState
     }).then((res) => {
-      navigate("/profile")
+      navigate("/login")
       setShowModal(false)
       console.log(res)
     }).catch((err) => {
-      setMessage("invalid username or password")
+      setMessage("please use only letters (a-z), numbers, and underscores.")
       console.log(err)
     }).finally(() => {
       setFormState(initialFormState)
@@ -43,13 +43,10 @@ export const LoginPage = ({ setShowModal, setIsRegistered }) => {
   };
 
   return ( 
-    <LoginPageStyled>
-      <h1>Login</h1>
-      { message && 
-        <div>{message}</div>
-      }
+    <RegisterPageStyled>
+      <h1>Register</h1>
       <form 
-        className="login-form"
+        className="register-form"
         onSubmit={submitForm}>
         <div className="input-field">
           <label htmlFor="name">Name</label>
@@ -60,6 +57,7 @@ export const LoginPage = ({ setShowModal, setIsRegistered }) => {
             onChange={updateFormControl}
             value={formState.username}
           />
+          {message && <div className="message">{message}</div>}
         </div>
         <div className="input-field">
           <label htmlFor="password">Password</label>
@@ -74,23 +72,22 @@ export const LoginPage = ({ setShowModal, setIsRegistered }) => {
 
         <div className="buttons">
           <button
-            className="register-button"
-            onClick={() => setIsRegistered(false)}
-            > Need to register?
+            className="login-button"
+            onClick={() => setIsRegistered(true)}
+            > back
           </button>
           <button 
             className="submit-button"
             disabled={isSubmitting}
-            > Login
+            > Register
           </button>
         </div>
-        
       </form>
-    </LoginPageStyled>
+    </RegisterPageStyled>
    );
 };
 
-const LoginPageStyled = styled.div`
+const RegisterPageStyled = styled.div`
   grid-column: 2 / span 12;
   grid-row: 2;
   display: flex;
@@ -98,7 +95,7 @@ const LoginPageStyled = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  & .login-form {
+  & .register-form {
     width: 50%;
     & .input-field {
       margin: 2rem auto;

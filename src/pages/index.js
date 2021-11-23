@@ -1,4 +1,6 @@
 export * from './HomePage'
-export * from './LoginPage'
+export * from './RegisterPage'
 export * from './NotFound'
 export * from './CanvasPage'
+export * from './ProfilePage'
+export * from './LoginPage'
