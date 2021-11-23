@@ -144,12 +144,12 @@ export const CanvasPage = ({ image }) => {
   }
 
   // todo: be able to edit shapes
-  const editCanvas = ( e ) => {
-    const canvasBounds = canvasRef.current.getBoundingClientRect();
-    const { clientX, clientY } = e
-    const x = clientX - canvasBounds.left
-    const y = clientY - canvasBounds.top
-  }
+  // const editCanvas = ( e ) => {
+  //   const canvasBounds = canvasRef.current.getBoundingClientRect();
+  //   const { clientX, clientY } = e
+  //   const x = clientX - canvasBounds.left
+  //   const y = clientY - canvasBounds.top
+  // }
 
   useEffect(() => {
     prepareCanvas()
@@ -168,7 +168,7 @@ export const CanvasPage = ({ image }) => {
         <canvas
           className="app-canvas"
           ref={canvasRef}
-          onMouseDown={(e) => tool === "pointer" ? editCanvas(e) : startDrawing(e)}
+          onMouseDown={startDrawing}
           onMouseUp={finishDrawing}
           onMouseOut={finishDrawing}
           onMouseMove={draw}
