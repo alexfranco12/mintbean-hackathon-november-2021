@@ -7,7 +7,6 @@ export const ToolItem = ({ tool, icon, setTool }) => {
         className="tool"
         onClick={() => {
           setTool(tool)
-          console.log("tool is "+tool)
         }}
         > {icon}
       </button>

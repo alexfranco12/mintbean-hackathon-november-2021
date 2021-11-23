@@ -33,7 +33,8 @@ const ModalStyled = styled.div`
 	height: 100%;
 	width: 100%;
 	overflow: auto;
-  z-index: 10;
+  background-color: rgba(242, 200, 75, .75);
+  z-index: 5;
   .modal__container {
     display: flex;
     flex-direction: column;
@@ -45,6 +46,7 @@ const ModalStyled = styled.div`
     margin: 10vh auto;
     box-shadow: 0 3px 3px black;
     padding: 4% 6%;
+    z-index: 10;
     .modal__button {
       align-self: flex-end;
       padding: 10px;

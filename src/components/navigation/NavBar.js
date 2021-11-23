@@ -3,20 +3,31 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Modal } from "..";
 import { RiUserLine } from 'react-icons/ri'
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../utils/userContext";
 
 export const NavBar = () => {
   const [showModal, setShowModal] = useState(false)
+  const { currentUser } = useContext(UserContext)
+  let navigate = useNavigate();
 
   return ( 
     <NavBarStyled>
-      <Link to="/">
-        <h1 className="title">PAINT</h1>
+      <Link to="/" className="title">
+        <h1>PAINT</h1>
       </Link>
       
       <div className="profile-link" >
         <div
           className="link"
-          onClick={() => setShowModal(true)}>
+          onClick={() => {
+            if (currentUser._id !== undefined) {
+              navigate(`/profile/${currentUser._id}`)
+            } else {
+              setShowModal(true)
+            }
+          }}>
           <RiUserLine />
         </div>
       </div>
@@ -34,15 +45,14 @@ const NavBarStyled = styled.div`
   grid-template-columns: subgrid;
   grid-template-rows: auto;
   position: relative;
-  & a {
+  & .title {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 2rem;
     color: ${props => props.theme.colors.dark1};
-    & .title {
-      grid-column: 1 / span 7;
-      grid-row: 1;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
   }
   & .profile-link {
     grid-column: 8 / span 2;
