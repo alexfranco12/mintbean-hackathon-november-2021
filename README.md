@@ -92,7 +92,10 @@ This is an example of how to list things you need to use the software and how to
    ```
 2. Install NPM packages
    ```sh
-   npm install
+   npm i styled-components react-router-dom react-icons
+   ```
+   ```sh
+   npm i axios dotenv react-color
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -106,32 +109,19 @@ This is an example of how to list things you need to use the software and how to
 - [x] as a user, I can drag my mouse across the screen to make free-form lines.
 - [ ] As a user, I can click areas of the screen with my mouse to fill them with a color, texture or pattern.
 
-##### TO-DO
-- [ ] a landing page that explains the application
-- [ ] different tools
-  - [x] pencil
-  - [ ] paint brush
-  - [ ] text box
-  - [ ] shapes
-    - [ ] circle
-    - [ ] square
-    - [ ] triangle
-  - [x] eraser
-- [ ] customize tools
-  - [x] color picker
-  - [x] cursor size
-- [ ] Mistake management
-  - [x] clear board
-  - [x] undo button
-  - [x] redo button
-- [ ] 
+##### [TO-DO](TODO)
+- [ ] Home Page
+- [ ] Canvas Page
+- [ ] Profile Page
+- [ ] Database
+- [ ] Deployment
 
 ##### Stretch Goals
 - [ ] saveable files
 - [ ] shareable art
 - [ ] user profiles with galleries of work
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [todo file](TODO) for a full list of open issues and please visit the [issues page](https://github.com/othneildrew/Best-README-Template/issues) to proposed features.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

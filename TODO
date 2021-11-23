@@ -2,18 +2,39 @@
 Home Page:
   ☐ create home page
 
-Paint:
-  ☐ change stroke size to a slider
-  ☐ change buttons to icons
+Canvas Page:
+  different tools:
+    ☐ paint brush
+    ☐ text box
+    shapes:
+      ✔ circles @done(21-11-23 15:48)
+      ✔ squares @done(21-11-23 15:48)
+      ✔ triangles @done(21-11-23 15:48)
+    ✔ eraser @done(21-11-23 15:48)
+  customize tools:
+    ✔ color picker @done(21-11-23 15:48)
+    ✔ stroke size @done(21-11-23 15:48)
+    ☐ change stroke size to a slider
+  mistake management:
+    ✔ clear board @done(21-11-23 15:48)
+    ✔ undo button @done(21-11-23 15:48)
+    ✔ redo button @done(21-11-23 15:48)
+  ✔ change buttons to icons @done(21-11-23 15:40)
   ☐ opacity slider
-  ☐ update height of canvas to be smaller
+  ✔ update height of canvas to be smaller @done(21-11-23 15:40)
   ✔ create a tool bar @done(21-11-21 10:50)
 
 Profile Page:
-  ☐ create profile page
-  
+  ✔ create profile page @done(21-11-23 15:40)
+  ☐ list user name
+  ☐ list saved canvases
 
 Backend:
-  ☐ create backend
-  ☐ user authentication
-  ☐ save work to profile
+  ✔ create backend @done(21-11-23 15:40)
+  ✔ user authentication @done(21-11-23 15:40)
+  ✔ save work to profile @done(21-11-23 15:40)
+
+Depoloyment:
+  ✔ Deploy frontend to Netlify @done(21-11-23 15:43)
+  ✔ Deploy backend to Heroku @done(21-11-23 15:43)
+
