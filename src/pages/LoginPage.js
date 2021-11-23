@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../utils/userContext";
 
 const initialFormState = {
   username: '',
@@ -9,26 +11,30 @@ const initialFormState = {
 }
 
 export const LoginPage = ({ setShowModal, setIsRegistered }) => {
+  const { NODE_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
   const [formState, setFormState] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState(null)
-
+  const { setCurrentUser } = useContext(UserContext);
+  
   let navigate = useNavigate();
 
-  const { REACT_APP_BACKEND } = process.env
+  const host = (
+    NODE_ENV === "development" 
+      ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
+  )
 
   const submitForm = (e) => {
     e.preventDefault();
     setIsSubmitting(true)
-    axios.post(`${REACT_APP_BACKEND}/login`, {
+    axios.post(`${host}/api/users/login`, {
       ...formState
     }).then((res) => {
-      navigate("/profile")
+      navigate(`/profile/${res.data._id}`)
+      setCurrentUser(res.data)
       setShowModal(false)
-      console.log(res)
     }).catch((err) => {
       setMessage("invalid username or password")
-      console.log(err)
     }).finally(() => {
       setFormState(initialFormState)
       setIsSubmitting(false)

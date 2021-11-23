@@ -9,26 +9,29 @@ const initialFormState = {
 }
 
 export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
+  const { NODE_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
   const [formState, setFormState] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState(null)
 
   let navigate = useNavigate();
 
-  const { REACT_APP_BACKEND } = process.env
+  
+  const host = (
+    NODE_ENV === "development" 
+      ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
+  )
 
   const submitForm = (e) => {
     e.preventDefault();
     setIsSubmitting(true)
-    axios.post(`${REACT_APP_BACKEND}/register`, {
+    axios.post(`${host}/api/users/register`, {
       ...formState
     }).then((res) => {
       navigate("/login")
       setShowModal(false)
-      console.log(res)
     }).catch((err) => {
       setMessage("please use only letters (a-z), numbers, and underscores.")
-      console.log(err)
     }).finally(() => {
       setFormState(initialFormState)
       setIsSubmitting(false)

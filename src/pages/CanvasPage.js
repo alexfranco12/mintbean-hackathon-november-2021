@@ -5,7 +5,7 @@ import {
   ToolBar
 } from "../components";
 
-export const CanvasPage = ( ) => {
+export const CanvasPage = ({ image }) => {
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const [ tool, setTool ] = useState(null)
@@ -45,18 +45,28 @@ export const CanvasPage = ( ) => {
   const prepareCanvas = () => {
     const canvas = canvasRef.current
     canvas.width = document.getElementById("canvas-container").offsetWidth;
-    canvas.height = window.innerHeight;
+    canvas.height = 500;
     canvas.style.width = `${document.getElementById("canvas-container").offsetWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
+    canvas.style.height = `${canvas.height}px`;
 
     const context = canvas.getContext("2d");
     context.scale(1, 1)
     contextRef.current = context;
+
+    if (image) {
+      const canvas = canvasRef.current
+      const context = canvas.getContext("2d");
+
+      // load image from data url
+      var imageObj = new Image();
+      imageObj.onload = function() {
+        context.drawImage(this, 0, 0);
+      };
+      imageObj.src = image;
+    } 
   }
 
   const startDrawing = (e) => {
-    if (!tool) return
-
     const ctx = contextRef.current
     ctx.save();
 
@@ -64,15 +74,8 @@ export const CanvasPage = ( ) => {
     const { offsetX: x, offsetY: y } = nativeEvent
 
     switch (tool) {
-      case "pencil":
-        console.log("pencil")
-        ctx.beginPath()
-        ctx.lineCap = "round"
-        ctx.strokeStyle = color
-        ctx.lineWidth = lineWidth
-        ctx.moveTo(x, y)
-        history.saveState(canvasRef);
-        setIsDrawing(true)
+      case "pointer":
+        console.log("pointer")
         break;
       case "eraser":
         ctx.beginPath()
@@ -84,7 +87,6 @@ export const CanvasPage = ( ) => {
         setIsDrawing(true)
         break;
       case "circle":
-        console.log("cirlce")
         ctx.beginPath()
         ctx.arc(x, y, (lineWidth * 11), 0, (Math.PI * 2), false);
         ctx.strokeStyle = 'black'
@@ -95,7 +97,6 @@ export const CanvasPage = ( ) => {
         history.saveState(canvasRef);
         break;
       case "triangle":
-        console.log("triangle")
         let length = lineWidth * 11
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -119,7 +120,13 @@ export const CanvasPage = ( ) => {
         ctx.stroke()
         break;
       default:
-        console.log("pointer")
+        ctx.beginPath()
+        ctx.lineCap = "round"
+        ctx.strokeStyle = color
+        ctx.lineWidth = lineWidth
+        ctx.moveTo(x, y)
+        history.saveState(canvasRef);
+        setIsDrawing(true)
     }
   }
 
@@ -136,16 +143,16 @@ export const CanvasPage = ( ) => {
     setIsDrawing(false)
   }
 
+  // todo: be able to edit shapes
   const editCanvas = ( e ) => {
     const canvasBounds = canvasRef.current.getBoundingClientRect();
     const { clientX, clientY } = e
     const x = clientX - canvasBounds.left
     const y = clientY - canvasBounds.top
-    console.log(x, y)
   }
 
   useEffect(() => {
-    prepareCanvas();
+    prepareCanvas()
   },[])
 
   return (
@@ -184,7 +191,7 @@ const CanvasStyled = styled.div`
   grid-column: 2 / span 12;
   grid-row: 2;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 3rem auto;
+  grid-template-rows: 4rem auto;
   width: 100%;
   & .canvas-container {
     grid-column: 1 / span 9;
