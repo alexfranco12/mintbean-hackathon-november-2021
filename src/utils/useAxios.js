@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND
-// REACT_APP_HEROKU_BACKEND
+const { NODE_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env;
+axios.defaults.baseURL = (
+  NODE_ENV === "development" 
+    ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
+)
 
 const useAxios = ( params ) => {
   const [data, setData] = useState(null);
@@ -17,7 +20,6 @@ const useAxios = ( params ) => {
       setError(null);
     } catch (err) {
       setError(err);
-      console.log(err)
     } finally {
       setLoading(false);
     }
