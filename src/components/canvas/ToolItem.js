@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const ToolItem = ({ tool, icon, setTool }) => {
-  const Icon = icon;
-
   return ( 
     <ToolItemStyled>
       <button 

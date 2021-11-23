@@ -53,6 +53,7 @@ export const ToolBar = ({ canvasRef, contextRef, history, setTool }) => {
 
       {tools.map((tool, i) => (
         <ToolItem
+          key={i}
           tool={tool.item}
           icon={tool.icon}
           setTool={setTool}
