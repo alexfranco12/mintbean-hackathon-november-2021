@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { UserContext } from './utils/userContext'
+import { useState, useMemo } from 'react';
 import { MainLayout } from './layouts';
 import { 
   CanvasPage, 
@@ -9,17 +11,26 @@ import {
 } from './pages';
 
 function App() {
+  const [image, setImage] = useState(null)
+  const [currentUser, setCurrentUser] = useState({});
+  const value = useMemo(
+    () => ({ currentUser, setCurrentUser }), 
+    [currentUser]
+  );
+
   return (
     <Router>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<CanvasPage/>} />
-          <Route path="/register" element={<RegisterPage/>} />
-          <Route path="/login" element={<LoginPage/>} />
-          <Route path="/profile" element={<ProfilePage/>} />
-          <Route path="*" element={<NotFound/>} />
-        </Routes>
-      </MainLayout>
+      <UserContext.Provider value={value}>
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<CanvasPage image={image} />} />
+            <Route path="/register" element={<RegisterPage/>} />
+            <Route path="/login" element={<LoginPage/>} />
+            <Route path="/profile/:id" element={<ProfilePage setImage={setImage} />} />
+            <Route path="*" element={<NotFound/>} />
+          </Routes>
+        </MainLayout>
+      </UserContext.Provider>
     </Router>
   );
 }

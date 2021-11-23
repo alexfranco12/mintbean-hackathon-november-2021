@@ -13,8 +13,10 @@ export const MainLayout = ({ children }) => {
 const MainLayoutStyled = styled.div`
   display: grid;
   grid-template-columns: .125rem repeat(12, 1fr) .125rem;
-  grid-template-rows: 3.125rem auto;
+  grid-template-rows: 5.125rem auto;
   grid-gap: 0 2rem;
+  width: 100%;
+  height: 100vh;
   background-color: ${props => props.theme.colors.light2};
 
   @media ${props => props.theme.breakpoints.tablet} {
