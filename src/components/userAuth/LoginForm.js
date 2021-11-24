@@ -1,33 +1,31 @@
-import styled from "styled-components";
 import axios from "axios";
-import { useState, useContext } from "react";
+import { useState } from "react";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../utils/userContext";
+import { useContext } from "react";
+import { UserContext } from "../../utils/userContext";
 
 const initialFormState = {
   username: '',
   password: '',
 }
 
-export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
+export const LoginForm = ({ setShowModal, setIsRegistered }) => {
   const { REACT_APP_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
   const [formState, setFormState] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { setCurrentUser } = useContext(UserContext);
   const [message, setMessage] = useState(null)
-  const host = REACT_APP_ENV === "development" 
-      ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
-
+  const { setCurrentUser } = useContext(UserContext);
+  const host = (REACT_APP_ENV === "development" ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND);
   let navigate = useNavigate();
 
-  
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     setIsSubmitting(true)
 
     axios.request({
       method: "POST",
-      url: `${host}/api/users/register`,
+      url: `${host}/api/users/login`,
       data: {
         ...formState
       },
@@ -36,12 +34,13 @@ export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
       },
       withCredentials: true,
     }).then((res) => {
-      console.log("register: ", res)
+      console.log("login: ", res)
       navigate(`/profile`)
       setCurrentUser(res.data)
       setShowModal(false)
     }).catch((err) => {
-      setMessage("please use only letters (a-z), numbers, and underscores.")
+      console.log(err)
+      setMessage("invalid username or password")
     }).finally(() => {
       setFormState(initialFormState)
       setIsSubmitting(false)
@@ -56,10 +55,13 @@ export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
   };
 
   return ( 
-    <RegisterPageStyled>
-      <h1>Register</h1>
+    <LoginFormStyled>
+      <h1>Login</h1>
+      { message && 
+        <div>{message}</div>
+      }
       <form 
-        className="register-form"
+        className="login-form"
         onSubmit={submitForm}>
         <div className="input-field">
           <label htmlFor="name">Name</label>
@@ -70,7 +72,6 @@ export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
             onChange={updateFormControl}
             value={formState.username}
           />
-          {message && <div className="message">{message}</div>}
         </div>
         <div className="input-field">
           <label htmlFor="password">Password</label>
@@ -85,22 +86,23 @@ export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
 
         <div className="buttons">
           <button
-            className="login-button"
-            onClick={() => setIsRegistered(true)}
-            > back
+            className="register-button"
+            onClick={() => setIsRegistered(false)}
+            > Need to register?
           </button>
           <button 
             className="submit-button"
             disabled={isSubmitting}
-            > Register
+            > Login
           </button>
         </div>
+        
       </form>
-    </RegisterPageStyled>
+    </LoginFormStyled>
    );
 };
 
-const RegisterPageStyled = styled.div`
+const LoginFormStyled = styled.div`
   grid-column: 2 / span 12;
   grid-row: 2;
   display: flex;
@@ -108,7 +110,7 @@ const RegisterPageStyled = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  & .register-form {
+  & .login-form {
     width: 50%;
     & .input-field {
       margin: 2rem auto;

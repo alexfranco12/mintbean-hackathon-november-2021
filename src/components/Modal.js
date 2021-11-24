@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { LoginPage, RegisterPage } from '../pages'
+import { LoginForm, RegisterForm } from '.'
 
 export const Modal = ({ showModal, setShowModal }) => {
   const [isRegistered, setIsRegistered] = useState(true)
@@ -17,8 +17,8 @@ export const Modal = ({ showModal, setShowModal }) => {
         </button>
         <div className="content">
           { (!isRegistered) 
-            ? <RegisterPage setIsRegistered={setIsRegistered} setShowModal={setShowModal} />
-            : <LoginPage setIsRegistered={setIsRegistered} setShowModal={setShowModal} />
+            ? <RegisterForm setIsRegistered={setIsRegistered} setShowModal={setShowModal} />
+            : <LoginForm setIsRegistered={setIsRegistered} setShowModal={setShowModal} />
           }
         </div>
       </div>

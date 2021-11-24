@@ -4,8 +4,6 @@ import { useState, useMemo } from 'react';
 import { MainLayout } from './layouts';
 import { 
   CanvasPage, 
-  LoginPage,
-  RegisterPage,
   NotFound, 
   ProfilePage
 } from './pages';
@@ -24,8 +22,6 @@ function App() {
         <MainLayout>
           <Routes>
             <Route path="/" element={<CanvasPage image={image} />} />
-            <Route path="/register" element={<RegisterPage/>} />
-            <Route path="/login" element={<LoginPage/>} />
             <Route path="/profile" element={<ProfilePage setImage={setImage} />} />
             <Route path="*" element={<NotFound/>} />
           </Routes>
