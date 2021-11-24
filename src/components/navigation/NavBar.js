@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Modal } from "..";
-import { RiUserLine } from 'react-icons/ri'
+import { RiUserLine, RiLogoutBoxRLine } from 'react-icons/ri'
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../utils/userContext";
@@ -22,13 +22,15 @@ export const NavBar = () => {
         <div
           className="link"
           onClick={() => {
-            if (currentUser._id !== undefined) {
-              navigate(`/profile/${currentUser._id}`)
-            } else {
-              setShowModal(true)
-            }
+            if (!currentUser) { setShowModal(true)} 
+            else { navigate(`/profile/${currentUser._id}`) }
           }}>
           <RiUserLine />
+        </div>
+        <div 
+          className="link"
+          style={{ opacity: currentUser ? 1 : 0 }}
+          > <RiLogoutBoxRLine />
         </div>
       </div>
       
@@ -67,6 +69,7 @@ const NavBarStyled = styled.div`
       border: 1px solid black;
       border-radius: 4px;
       padding: .75rem 1.25rem;
+      margin: auto 1rem;
       background-color: ${props => props.theme.colors.secondary1};
     }
   }

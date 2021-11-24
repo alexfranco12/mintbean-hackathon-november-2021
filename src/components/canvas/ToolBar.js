@@ -36,10 +36,10 @@ const tools = [
 
 export const ToolBar = ({ canvasRef, contextRef, history, setTool }) => {
   const { currentUser } = useContext(UserContext);
-  const { NODE_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
+  const { REACT_APP_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
 
   const host = (
-    NODE_ENV === "development" 
+    REACT_APP_ENV === "development" 
       ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
   )
 
@@ -102,11 +102,11 @@ export const ToolBar = ({ canvasRef, contextRef, history, setTool }) => {
         download
       </button>
 
-      <button
+      {currentUser && <button
         className="button save-image"
         onClick={saveImage}>
         save
-      </button>
+      </button>}
 
     </ToolBarStyled>
    );

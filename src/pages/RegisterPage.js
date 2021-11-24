@@ -17,10 +17,8 @@ export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
   let navigate = useNavigate();
 
   
-  const host = (
-    REACT_APP_ENV === "development" 
+  const host = REACT_APP_ENV === "development" 
       ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
-  )
 
   const submitForm = (e) => {
     e.preventDefault();

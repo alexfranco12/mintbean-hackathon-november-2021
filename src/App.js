@@ -12,7 +12,7 @@ import {
 
 function App() {
   const [image, setImage] = useState(null)
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   const value = useMemo(
     () => ({ currentUser, setCurrentUser }), 
     [currentUser]
