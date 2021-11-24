@@ -9,7 +9,7 @@ const initialFormState = {
 }
 
 export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
-  const { NODE_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
+  const { REACT_APP_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
   const [formState, setFormState] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState(null)
@@ -18,7 +18,7 @@ export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
 
   
   const host = (
-    NODE_ENV === "development" 
+    REACT_APP_ENV === "development" 
       ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
   )
 

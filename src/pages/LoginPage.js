@@ -11,22 +11,18 @@ const initialFormState = {
 }
 
 export const LoginPage = ({ setShowModal, setIsRegistered }) => {
-  const { NODE_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
+  const { REACT_APP_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
   const [formState, setFormState] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState(null)
   const { setCurrentUser } = useContext(UserContext);
-  
+  const host = (REACT_APP_ENV === "development" ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND);
   let navigate = useNavigate();
 
-  const host = (
-    NODE_ENV === "development" 
-      ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
-  )
-
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     setIsSubmitting(true)
+    
     axios.post(`${host}/api/users/login`, {
       ...formState
     }).then((res) => {
@@ -34,6 +30,7 @@ export const LoginPage = ({ setShowModal, setIsRegistered }) => {
       setCurrentUser(res.data)
       setShowModal(false)
     }).catch((err) => {
+      console.log(err)
       setMessage("invalid username or password")
     }).finally(() => {
       setFormState(initialFormState)
