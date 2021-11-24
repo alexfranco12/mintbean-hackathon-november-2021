@@ -22,11 +22,20 @@ export const LoginPage = ({ setShowModal, setIsRegistered }) => {
   const submitForm = async (e) => {
     e.preventDefault();
     setIsSubmitting(true)
-    
-    axios.post(`${host}/api/users/login`, {
-      ...formState
+
+    axios.request({
+      method: "POST",
+      url: `${host}/api/users/login`,
+      data: {
+        ...formState
+      },
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true,
     }).then((res) => {
-      navigate(`/profile/${res.data._id}`)
+      console.log("login: ", res)
+      navigate(`/profile`)
       setCurrentUser(res.data)
       setShowModal(false)
     }).catch((err) => {

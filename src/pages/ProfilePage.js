@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import useAxios from "../utils/useAxios"; 
-import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
 export const ProfilePage = ({ setImage }) => {
-  const { id } = useParams();
   const { data: user, error, loading } = useAxios({
     method: 'GET',
-    url: `api/users/me/${id}`,
+    url: `api/users/me`,
     headers: {
       accept: '*/*',
-    }
+    },
+    withCredentials: true,
   })
 
   return ( 

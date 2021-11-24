@@ -26,7 +26,7 @@ function App() {
             <Route path="/" element={<CanvasPage image={image} />} />
             <Route path="/register" element={<RegisterPage/>} />
             <Route path="/login" element={<LoginPage/>} />
-            <Route path="/profile/:id" element={<ProfilePage setImage={setImage} />} />
+            <Route path="/profile" element={<ProfilePage setImage={setImage} />} />
             <Route path="*" element={<NotFound/>} />
           </Routes>
         </MainLayout>

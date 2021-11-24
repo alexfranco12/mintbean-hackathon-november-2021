@@ -1,7 +1,8 @@
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../utils/userContext";
 
 const initialFormState = {
   username: '',
@@ -12,21 +13,32 @@ export const RegisterPage = ({ setShowModal, setIsRegistered }) => {
   const { REACT_APP_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
   const [formState, setFormState] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { setCurrentUser } = useContext(UserContext);
   const [message, setMessage] = useState(null)
+  const host = REACT_APP_ENV === "development" 
+      ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
 
   let navigate = useNavigate();
 
   
-  const host = REACT_APP_ENV === "development" 
-      ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND
-
   const submitForm = (e) => {
     e.preventDefault();
     setIsSubmitting(true)
-    axios.post(`${host}/api/users/register`, {
-      ...formState
+
+    axios.request({
+      method: "POST",
+      url: `${host}/api/users/register`,
+      data: {
+        ...formState
+      },
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true,
     }).then((res) => {
-      navigate("/login")
+      console.log("register: ", res)
+      navigate(`/profile`)
+      setCurrentUser(res.data)
       setShowModal(false)
     }).catch((err) => {
       setMessage("please use only letters (a-z), numbers, and underscores.")

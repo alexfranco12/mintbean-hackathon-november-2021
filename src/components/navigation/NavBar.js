@@ -6,11 +6,28 @@ import { RiUserLine, RiLogoutBoxRLine } from 'react-icons/ri'
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../utils/userContext";
+import axios from "axios";
 
 export const NavBar = () => {
   const [showModal, setShowModal] = useState(false)
-  const { currentUser } = useContext(UserContext)
+  const { currentUser, setCurrentUser } = useContext(UserContext)
+  const { REACT_APP_ENV, REACT_APP_BACKEND, REACT_APP_HEROKU_BACKEND } = process.env
+  const host = REACT_APP_ENV === "development" ? REACT_APP_BACKEND : REACT_APP_HEROKU_BACKEND;
   let navigate = useNavigate();
+
+  const handleLogout = () => {
+    axios.request({
+      method: "GET",
+      url: `${host}/api/users/logout`,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      withCredentials: true,
+    })
+
+    setCurrentUser(null)
+    navigate(`/`)
+  }
 
   return ( 
     <NavBarStyled>
@@ -23,13 +40,14 @@ export const NavBar = () => {
           className="link"
           onClick={() => {
             if (!currentUser) { setShowModal(true)} 
-            else { navigate(`/profile/${currentUser._id}`) }
+            else { navigate(`/profile`) }
           }}>
           <RiUserLine />
         </div>
         <div 
           className="link"
           style={{ opacity: currentUser ? 1 : 0 }}
+          onClick={handleLogout}
           > <RiLogoutBoxRLine />
         </div>
       </div>
