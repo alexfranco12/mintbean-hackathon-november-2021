@@ -37,9 +37,9 @@ export const RegisterForm = ({ setShowModal, setIsRegistered }) => {
       withCredentials: true,
     }).then((res) => {
       console.log("register: ", res)
-      navigate(`/profile`)
       setCurrentUser(res.data)
       setShowModal(false)
+      navigate(`/profile`)
     }).catch((err) => {
       setMessage("please use only letters (a-z), numbers, and underscores.")
     }).finally(() => {

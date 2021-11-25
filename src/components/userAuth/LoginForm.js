@@ -33,11 +33,10 @@ export const LoginForm = ({ setShowModal, setIsRegistered }) => {
         'Access-Control-Allow-Origin': '*'
       },
       withCredentials: true,
-    }).then((res) => {
-      console.log("login: ", res)
-      navigate(`/profile`)
+    }).then((res) => {      
       setCurrentUser(res.data)
       setShowModal(false)
+      navigate(`/profile`)
     }).catch((err) => {
       console.log(err)
       setMessage("invalid username or password")
