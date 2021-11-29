@@ -41,7 +41,8 @@ export const RegisterForm = ({ setShowModal, setIsRegistered }) => {
       setShowModal(false)
       navigate(`/profile`)
     }).catch((err) => {
-      setMessage("please use only letters (a-z), numbers, and underscores.")
+      console.log(err)
+      setMessage("username already exists")
     }).finally(() => {
       setFormState(initialFormState)
       setIsSubmitting(false)
@@ -77,7 +78,7 @@ export const RegisterForm = ({ setShowModal, setIsRegistered }) => {
           <input 
             className="password" 
             id="password" 
-            type="text"
+            type="password"
             onChange={updateFormControl}
             value={formState.password}
           />
