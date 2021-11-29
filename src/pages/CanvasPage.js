@@ -4,6 +4,7 @@ import {
   Sidebar,
   ToolBar
 } from "../components";
+import useWindowSize from "../utils/useWindowSize";
 
 export const CanvasPage = ({ image }) => {
   const canvasRef = useRef(null)
@@ -127,10 +128,12 @@ export const CanvasPage = ({ image }) => {
   //   const y = clientY - canvasBounds.top
   // }
 
+  const { height, width } = useWindowSize();
+
   useEffect(() => {
     const canvas = canvasRef.current
     canvas.width = document.getElementById("canvas-container").offsetWidth;
-    canvas.height = 500;
+    canvas.height = 600;
     canvas.style.width = `${document.getElementById("canvas-container").offsetWidth}px`;
     canvas.style.height = `${canvas.height}px`;
 
@@ -149,7 +152,7 @@ export const CanvasPage = ({ image }) => {
       };
       imageObj.src = image;
     } 
-  },[image])
+  },[image, height, width])
 
   return (
     <CanvasStyled>
