@@ -1,41 +1,54 @@
+TODO:
+  ☐ new name for app
+  
+  Home Page:
+    ☐ create home page
+    
+  Login/Register:
+    ☐ create better forms
+    ☐ password must include ....
+    ☐ show/hide password
+    ☐ forgot password link
 
-Home Page:
-  ☐ create home page
+  Canvas Page:
+    ☐ update canvas to fit width viewport
+    ✔ change buttons to icons @done(21-11-23 15:40)
+    ☐ opacity slider
+    ✔ update height of canvas to be smaller @done(21-11-23 15:40)
+    ✔ create a tool bar @done(21-11-21 10:50)
 
-Canvas Page:
-  different tools:
-    ☐ paint brush
-    ☐ text box
-    shapes:
-      ✔ circles @done(21-11-23 15:48)
-      ✔ squares @done(21-11-23 15:48)
-      ✔ triangles @done(21-11-23 15:48)
-    ✔ eraser @done(21-11-23 15:48)
-  customize tools:
-    ✔ color picker @done(21-11-23 15:48)
-    ✔ stroke size @done(21-11-23 15:48)
-    ☐ change stroke size to a slider
-  mistake management:
-    ✔ clear board @done(21-11-23 15:48)
-    ✔ undo button @done(21-11-23 15:48)
-    ✔ redo button @done(21-11-23 15:48)
-  ✔ change buttons to icons @done(21-11-23 15:40)
-  ☐ opacity slider
-  ✔ update height of canvas to be smaller @done(21-11-23 15:40)
-  ✔ create a tool bar @done(21-11-21 10:50)
+    different tools:
+      ☐ paint brush
+      ☐ text box
+      shapes:
+        ✔ circles @done(21-11-23 15:48)
+        ✔ squares @done(21-11-23 15:48)
+        ✔ triangles @done(21-11-23 15:48)
+      ✔ eraser @done(21-11-23 15:48)
 
-Profile Page:
-  ✔ create profile page @done(21-11-23 15:40)
-  ☐ list user name
-  ☐ list saved canvases
-  ☐ create a logout
+    customize tools:
+      ✔ color picker @done(21-11-23 15:48)
+      ✔ stroke size @done(21-11-23 15:48)
+      ☐ change stroke size to a slider
 
-Backend:
-  ✔ create backend @done(21-11-23 15:40)
-  ✔ user authentication @done(21-11-23 15:40)
-  ✔ save work to profile @done(21-11-23 15:40)
+    mistake management:
+      ✔ clear board @done(21-11-23 15:48)
+      ✔ undo button @done(21-11-23 15:48)
+      ✔ redo button @done(21-11-23 15:48)
 
-Depoloyment:
-  ✔ Deploy frontend to Netlify @done(21-11-23 15:43)
-  ✔ Deploy backend to Heroku @done(21-11-23 15:43)
+
+  Profile Page:
+    ✔ create profile page @done(21-11-23 15:40)
+    ☐ list user name
+    ☐ list saved canvases
+    ☐ create a logout
+
+  Backend:
+    ✔ create backend @done(21-11-23 15:40)
+    ✔ user authentication @done(21-11-23 15:40)
+    ✔ save work to profile @done(21-11-23 15:40)
+
+  Depoloyment:
+    ✔ Deploy frontend to Netlify @done(21-11-23 15:43)
+    ✔ Deploy backend to Heroku @done(21-11-23 15:43)
 
