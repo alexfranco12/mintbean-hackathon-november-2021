@@ -36,6 +36,12 @@ export const NavBar = () => {
       </Link>
       
       <div className="profile-link" >
+        <div 
+          className="link"
+          style={{ opacity: currentUser ? 1 : 0 }}
+          onClick={handleLogout}
+          > <RiLogoutBoxRLine />
+        </div>
         <div
           className="link"
           onClick={() => {
@@ -43,12 +49,6 @@ export const NavBar = () => {
             else { navigate(`/profile`) }
           }}>
           <RiUserLine />
-        </div>
-        <div 
-          className="link"
-          style={{ opacity: currentUser ? 1 : 0 }}
-          onClick={handleLogout}
-          > <RiLogoutBoxRLine />
         </div>
       </div>
       
